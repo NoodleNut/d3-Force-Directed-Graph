@@ -8,25 +8,25 @@ var force = d3.layout.force() //Constructs a new force-directed layout
     .linkDistance(30)
     .size([width, height]);
 
-var svg = d3.select("body").append("svg") ////add container element called <svg>
+var svg = d3.select("body").append("svg") //add container element called <svg>
     .attr("width", width)
     .attr("height", height);
 
-d3.json("miserables.json", function(error, graph) {
+d3.json("miserables.json", function(error, graph) { //starts the graph
     force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
+        .nodes(graph.nodes) //first element
+    .links(graph.links) //second element in each object in the json file
+    .start();
 
-    var link = svg.selectAll(".link")
+    var link = svg.selectAll(".link") //enter the links
         .data(graph.links)
         .enter().append("line")
         .attr("class", "link")
-        .style("stroke-width", function(d) {
+        .style("stroke-width", function(d) { //stroke width based on group attr
             return Math.sqrt(d.value);
         });
 
-    var node = svg.selectAll(".node")
+    var node = svg.selectAll(".node") //enter the nodes
         .data(graph.nodes)
         .enter().append("circle")
         .attr("class", "node")
@@ -36,11 +36,12 @@ d3.json("miserables.json", function(error, graph) {
         })
         .call(force.drag);
 
-    node.append("title")
-        .text(function(d) {
-            return d.name;
-        });
+    node.append("title") //sets each node's title to be the name attr
+    .text(function(d) {
+        return d.name;
+    });
 
+    //updates x and y coordinates of nodes and links for movement
     force.on("tick", function() {
         link.attr("x1", function(d) {
             return d.source.x;

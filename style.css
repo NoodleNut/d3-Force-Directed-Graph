@@ -4,6 +4,10 @@
 }
 
 .link {
-  stroke: #999;
+  stroke: #fff;
   stroke-opacity: .6;
+}
+
+body{
+	background-color: black;
 }

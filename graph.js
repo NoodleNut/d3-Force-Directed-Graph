@@ -1,11 +1,11 @@
-var width = 960,
-    height = 500;
+var width = 1960,
+    height = 900;
 
 var color = d3.scale.category20b(); //gets a list of preselected colours
 
 var force = d3.layout.force() //Constructs a new force-directed layout 
-    .charge(-120)
-    .linkDistance(30)
+    .charge(-150)
+    .linkDistance(50)
     .size([width, height]);
 
 var svg = d3.select("body").append("svg") //add container element called <svg>
@@ -30,7 +30,7 @@ d3.json("miserables.json", function(error, graph) { //starts the graph
         .data(graph.nodes)
         .enter().append("circle")
         .attr("class", "node")
-        .attr("r", 5)
+        .attr("r", 6)
         .style("fill", function(d) {
             return color(d.group);
         })
